@@ -6,9 +6,47 @@
   </v-toolbar>
   <v-content>
   <v-container fluid>
-    <!--The MainContent Component goes here-->
-  <MainContent :countries="countries"></MainContent>
-  </v-container>
+    <v-layout row wrap align-center>
+      <v-flex xs12>
+            <div v-for="index in countries" :key="index">
+              <v-card hover data-aos="zoom-in" data-aos-easing="ease">
+                  <v-container fill-height fluid>
+                    <v-layout>
+                      <v-flex xs12 align-end d-flex>
+                        <span class="headline">{{ countries.country }}</span>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                <v-card-text>
+                  <h3>Country</h3>
+                </v-card-text>
+                <v-card-actions>
+                 <v-chip small color="secondary" class="white--text">
+                  <h4>Country</h4>
+                </v-chip>
+                <v-spacer></v-spacer>
+                <v-btn icon class="red--text">
+                <v-icon small>fa-reddit</v-icon>
+                </v-btn>
+                <v-btn icon class="light-blue--text">
+                  <v-icon small>fa-twitter</v-icon>
+                </v-btn>
+                <v-btn icon class="blue--text text--darken-4">
+                  <v-icon small>fa-facebook</v-icon>
+                </v-btn>
+                <v-btn icon class="red--text">
+                  <v-icon small>fa-google-plus</v-icon>
+                </v-btn>
+                <v-btn icon class="blue--text text--darken-4">
+                  <v-icon small>fa-linkedin</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+            </div>
+          </v-flex>
+       </v-layout>
+     </v-container>
    </v-content>
    <v-footer class="secondary" app>
       <v-layout row wrap align-center>
@@ -25,18 +63,27 @@
   </v-app>
 </template>
 <script>
-import axios from 'axios' //import the axios a HTTP library to connect the app with the API
-import MainContent from './components/MainContent.vue' // import the MainContent component
+import axios from 'axios';
 export default {
-    components: {
-      MainContent
-  },
   data() {
     return {
-      countries: [],
-      errors: [],
+      countries: [
+        {
+        country: '',
+        cases: {
+          new: '',
+          active: '',
+          critical: '',
+          recovered: '',
+          total: ''
+        },
+        deaths: {
+          total: ''
+       }
+       }
+      ]
     }
-  },
+   },
    created () {
     axios.defaults.headers.common['x-rapidapi-host'] = 'covid-193.p.rapidapi.com';
     axios.defaults.headers.common['x-rapidapi-key'] = 'd6170fbf28msh711604efe0f7970p1ce9f3jsnf68590abbea1';
@@ -44,12 +91,9 @@ export default {
       .then(response => {
         let countries = response.data.response;
         console.log(countries)
-        .catch(e => {
-        this.errors.push(e)
-      })
+
     })
-  },
-  methods: {}
+   }
   }
 </script>
 <style scoped>
