@@ -1,19 +1,19 @@
 <template>
  <v-app light>
   <v-toolbar fixed app light clipped-left color="primary" class="elevation-2">
-    <v-toolbar-side-icon @click="drawer = !drawer"  class="white--text"></v-toolbar-side-icon>
+    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
     <v-toolbar-title class="white--text"><img src="./assets/covid.png" width="140px" /></v-toolbar-title>
   </v-toolbar>
   <v-content>
   <v-container fluid>
     <v-layout row wrap align-center>
       <v-flex xs12>
-            <div v-for="index in countries" :key="index">
+            <div v-for="country in countries" :key="country.id">
               <v-card hover data-aos="zoom-in" data-aos-easing="ease">
                   <v-container fill-height fluid>
                     <v-layout>
                       <v-flex xs12 align-end d-flex>
-                        <span class="headline">{{ countries.country }}</span>
+                        <span class="headline">{{ country }}</span>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -92,7 +92,10 @@ export default {
         let countries = response.data.response;
         console.log(countries)
 
-    })
+   })
+   },
+   computed: {
+
    }
   }
 </script>
